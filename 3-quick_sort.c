@@ -74,7 +74,7 @@ int l_partition(int *array, size_t size, int up, int down)
  * @up: The starting index of the array
  * partition to order.
  *
- * @down: The ending index of the array 
+ * @down: The ending index of the array
  * partition to order.
  *
  * Description: using the Lomuto partition scheme.
