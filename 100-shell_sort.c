@@ -1,18 +1,18 @@
 #include "sort.h"
 
 /**
- * cal_pow - calculate the power of a number
+ * f_pow - find the power of a number
  * @y: the base number
  * @z: the value of power
  *
  * Return: the power of y
  */
-int cal_pow(int y, size_t z)
+int f_pow(int y, size_t z)
 {
 	if (z == 0)
 		return (1);
 
-	return (y * cal_pow(y, z - 1));
+	return (y * f_pow(y, z - 1));
 }
 
 /**
@@ -24,16 +24,20 @@ int cal_pow(int y, size_t z)
  */
 int *gen_sequence(size_t size)
 {
-	size_t i;
-	int *sequence;
+	size_t i = 0;
+	int g = 0, curr_term, *sequence;
 
 	sequence = malloc(sizeof(int) * size);
 	if (sequence == NULL)
 		return (NULL);
 
-	for (i = 0; i < size; i++)
+	curr_term = 0;
+	while (i < size)
 	{
-		sequence[i] = cal_pow(3, i);
+		curr_term = curr_term + f_pow(3, i);
+		sequence[g] = curr_term;
+		i++;
+		g++;
 	}
 	return (sequence);
 }
@@ -48,15 +52,19 @@ int *gen_sequence(size_t size)
 int *rev_sequence(int *sequence, size_t size)
 {
 	int *rev_seq;
-	size_t g = 0;
+	size_t g = 0, ind_sequence;
 
 	rev_seq = malloc(sizeof(int) * size);
 	if (rev_seq == NULL)
 		return (NULL);
 
-	for (g = 0; g < size; g++)
+	ind_sequence = size - 1;
+	while (g < size)
 	{
-		rev_seq[g] = sequence[size - g - 1]; }
+		rev_seq[g] = sequence[ind_sequence];
+	       g++;
+	       ind_sequence--;	       
+	}
 	return (rev_seq);
 }
 
