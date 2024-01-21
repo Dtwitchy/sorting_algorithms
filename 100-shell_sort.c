@@ -56,8 +56,7 @@ int *rev_sequence(int *sequence, size_t size)
 
 	for (g = 0; g < size; g++)
 	{
-		rev_seq[g] = sequence[size - g - 1];
-	}
+		rev_seq[g] = sequence[size - g - 1]; }
 	return (rev_seq);
 }
 
@@ -70,8 +69,9 @@ int *rev_sequence(int *sequence, size_t size)
  */
 void shell_sort(int *array, size_t size)
 {
-	int i, temp, *sequence, *rev_seq;
-	size_t g, h, gap;
+	int h, flag = 0;
+	int temp, *sequence, *rev_seq, gap;
+	size_t g, ind_sequence = 0;
 
 	sequence = gen_sequence(size);
 	if (sequence == NULL)
@@ -79,28 +79,25 @@ void shell_sort(int *array, size_t size)
 
 	rev_seq = rev_sequence(sequence, size);
 	if (rev_seq == NULL)
-	{
-		free(sequence);
 		return;
-	}
 
-	for (g = 0; g < size; g++)
+	while (ind_sequence < size)
 	{
-		gap = rev_seq[g];
-
-
-		for (h = gap; h < size; h++)
+		for (g = rev_seq[ind_sequence]; g < size; g++)
 		{
-			temp = array[h];
-			for (i = g; i >= (int)gap && array[i - gap] > temp; i -= gap)
+			temp = array[g];
+			gap = rev_seq[ind_sequence];
+			for (h = g; h >= gap && array[h - gap] > temp; h -= gap)
 			{
-				array[i] = array[i - gap];
+				array[h] = array[h - rev_seq[ind_sequence]];
 			}
-			array[g] = temp;
+			array[h] = temp;
+			flag = 1;
 		}
-		print_array(array, size);
+		if (flag)
+			print_array(array, size);
+		ind_sequence++;
 	}
-
 	free(sequence);
 	free(rev_seq);
 }
