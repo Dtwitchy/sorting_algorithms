@@ -63,7 +63,7 @@ int *rev_sequence(int *sequence, size_t size)
 	{
 		rev_seq[g] = sequence[ind_sequence];
 	       g++;
-	       ind_sequence--;	       
+	       ind_sequence--;
 	}
 	return (rev_seq);
 }
